@@ -18,6 +18,7 @@ final class CollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupConstraints()
+        setupCell()
     }
 
     required init?(coder: NSCoder) {
@@ -34,5 +35,10 @@ final class CollectionViewCell: UICollectionViewCell {
             titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
+    }
+
+    private func setupCell() {
+        layer.cornerRadius = 12
+        layer.masksToBounds = true
     }
 }

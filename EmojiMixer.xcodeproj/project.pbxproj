@@ -14,6 +14,13 @@
 		92445BBF29B27731004EC463 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92445BBD29B27731004EC463 /* LaunchScreen.storyboard */; };
 		92445BC729B2792B004EC463 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92445BC629B2792B004EC463 /* CollectionViewCell.swift */; };
 		92445BC929B27C36004EC463 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92445BC829B27C36004EC463 /* UIView+Extensions.swift */; };
+		92C8D04E29ED1E5B006606B1 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D04C29ED1E5B006606B1 /* Model.xcdatamodeld */; };
+		92C8D05129ED4F30006606B1 /* EmojiMixFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D05029ED4F30006606B1 /* EmojiMixFactory.swift */; };
+		92C8D05429ED4FB7006606B1 /* EmojiMix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D05329ED4FB7006606B1 /* EmojiMix.swift */; };
+		92C8D05629ED5098006606B1 /* UIColorMarshalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D05529ED5098006606B1 /* UIColorMarshalling.swift */; };
+		92C8D05A29ED5F1C006606B1 /* EmojiMixStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D05929ED5F1C006606B1 /* EmojiMixStore.swift */; };
+		92C8D05C29EF2078006606B1 /* EmojiMixStoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D05B29EF2078006606B1 /* EmojiMixStoreDelegate.swift */; };
+		92C8D05E29EFC22F006606B1 /* EmojiMixStoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D05D29EFC22F006606B1 /* EmojiMixStoreProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +33,13 @@
 		92445BC029B27731004EC463 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92445BC629B2792B004EC463 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		92445BC829B27C36004EC463 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		92C8D04D29ED1E5B006606B1 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		92C8D05029ED4F30006606B1 /* EmojiMixFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMixFactory.swift; sourceTree = "<group>"; };
+		92C8D05329ED4FB7006606B1 /* EmojiMix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMix.swift; sourceTree = "<group>"; };
+		92C8D05529ED5098006606B1 /* UIColorMarshalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorMarshalling.swift; sourceTree = "<group>"; };
+		92C8D05929ED5F1C006606B1 /* EmojiMixStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMixStore.swift; sourceTree = "<group>"; };
+		92C8D05B29EF2078006606B1 /* EmojiMixStoreDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMixStoreDelegate.swift; sourceTree = "<group>"; };
+		92C8D05D29EFC22F006606B1 /* EmojiMixStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMixStoreProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,12 +76,51 @@
 				92445BB429B27730004EC463 /* SceneDelegate.swift */,
 				92445BB629B27730004EC463 /* ViewController.swift */,
 				92445BC629B2792B004EC463 /* CollectionViewCell.swift */,
-				92445BC829B27C36004EC463 /* UIView+Extensions.swift */,
+				92C8D05729ED509C006606B1 /* Services */,
+				92C8D05229ED4F9B006606B1 /* Models */,
+				92C8D05829ED50B5006606B1 /* Helpers */,
+				92C8D04F29ED1F99006606B1 /* CoreData */,
 				92445BBB29B27731004EC463 /* Assets.xcassets */,
 				92445BBD29B27731004EC463 /* LaunchScreen.storyboard */,
 				92445BC029B27731004EC463 /* Info.plist */,
 			);
 			path = EmojiMixer;
+			sourceTree = "<group>";
+		};
+		92C8D04F29ED1F99006606B1 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				92C8D04C29ED1E5B006606B1 /* Model.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		92C8D05229ED4F9B006606B1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				92C8D05329ED4FB7006606B1 /* EmojiMix.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		92C8D05729ED509C006606B1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				92C8D05029ED4F30006606B1 /* EmojiMixFactory.swift */,
+				92C8D05929ED5F1C006606B1 /* EmojiMixStore.swift */,
+				92C8D05B29EF2078006606B1 /* EmojiMixStoreDelegate.swift */,
+				92C8D05D29EFC22F006606B1 /* EmojiMixStoreProtocol.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		92C8D05829ED50B5006606B1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				92445BC829B27C36004EC463 /* UIView+Extensions.swift */,
+				92C8D05529ED5098006606B1 /* UIColorMarshalling.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,8 +196,15 @@
 				92445BB729B27730004EC463 /* ViewController.swift in Sources */,
 				92445BB329B27730004EC463 /* AppDelegate.swift in Sources */,
 				92445BC929B27C36004EC463 /* UIView+Extensions.swift in Sources */,
+				92C8D05429ED4FB7006606B1 /* EmojiMix.swift in Sources */,
 				92445BC729B2792B004EC463 /* CollectionViewCell.swift in Sources */,
+				92C8D05129ED4F30006606B1 /* EmojiMixFactory.swift in Sources */,
 				92445BB529B27730004EC463 /* SceneDelegate.swift in Sources */,
+				92C8D05E29EFC22F006606B1 /* EmojiMixStoreProtocol.swift in Sources */,
+				92C8D05A29ED5F1C006606B1 /* EmojiMixStore.swift in Sources */,
+				92C8D05629ED5098006606B1 /* UIColorMarshalling.swift in Sources */,
+				92C8D05C29EF2078006606B1 /* EmojiMixStoreDelegate.swift in Sources */,
+				92C8D04E29ED1E5B006606B1 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +416,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		92C8D04C29ED1E5B006606B1 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				92C8D04D29ED1E5B006606B1 /* Model.xcdatamodel */,
+			);
+			currentVersion = 92C8D04D29ED1E5B006606B1 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 92445BA729B27730004EC463 /* Project object */;
 }
