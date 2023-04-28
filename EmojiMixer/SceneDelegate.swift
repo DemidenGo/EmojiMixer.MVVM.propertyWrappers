@@ -15,6 +15,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: scene)
         let viewController = ViewController()
+        let emojiMixFactory = EmojiMixFactory()
+        let emojiMixStore = EmojiMixStore()
+        let viewModel = EmojiMixesViewModel(emojiMixFactory: emojiMixFactory, emojiMixStore: emojiMixStore)
+        viewController.initialize(viewModel)
         let navigationController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationController
         self.window = window

@@ -11,7 +11,7 @@ final class EmojiMixFactory {
 
     private let emojies = [ "🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🥭", "🍎", "🍏", "🍐", "🍒", "🍓", "🫐", "🥝", "🍅", "🫒", "🥥", "🥑", "🍆", "🥔", "🥕", "🌽", "🌶️", "🫑", "🥒", "🥬", "🥦", "🧄", "🧅", "🍄"]
 
-    func makeNewMix() -> String {
+    private func makeEmojies() -> String {
         var mix = ""
         for _ in 0...2 {
             guard let randomEmoji = emojies.randomElement() else { return "" }
@@ -20,10 +20,10 @@ final class EmojiMixFactory {
         return mix
     }
 
-    func makeColor() -> UIColor {
-        let emojiMix = makeNewMix()
+    private func makeColor() -> UIColor {
+        let emojies = makeEmojies()
         var colorComponents: [CGFloat] = []
-        for char in emojiMix {
+        for char in emojies {
             let scalars = char.unicodeScalars
             let emojiScalarValue = scalars[scalars.startIndex].value
             let colorComponent: CGFloat = CGFloat(emojiScalarValue % 128) / 255 + 0.25
@@ -33,5 +33,9 @@ final class EmojiMixFactory {
                        green: colorComponents[1],
                        blue: colorComponents[2],
                        alpha: 1)
+    }
+
+    func createEmojiMix() -> EmojiMix {
+        return EmojiMix(emojies: makeEmojies(), backgroundColor: makeColor())
     }
 }

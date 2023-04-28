@@ -8,5 +8,5 @@
 import UIKit
 
 protocol EmojiMixStoreDelegate: AnyObject {
-    func didUpdate(_ insertedIndexes: IndexSet, _ deletedIndexes: IndexSet)
+    func didUpdateContent()
 }

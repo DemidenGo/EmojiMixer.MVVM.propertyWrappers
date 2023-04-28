@@ -8,7 +8,6 @@
 import UIKit
 
 protocol EmojiMixStoreProtocol {
-    var numberOfSections: Int { get }
     func numberOfItemsInSection(_ section: Int) -> Int
     func object(at indexPath: IndexPath) -> EmojiMix?
     func addEmojiMix(_ emojiMix: EmojiMix) throws

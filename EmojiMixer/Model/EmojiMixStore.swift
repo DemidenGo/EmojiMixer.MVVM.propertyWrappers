@@ -34,6 +34,10 @@ final class EmojiMixStore: NSObject {
         return controller
     }()
 
+    var emojiMixes: [EmojiMixCoreData] {
+        fetchedResultsController.fetchedObjects ?? []
+    }
+
     init(context: NSManagedObjectContext) {
         self.context = context
     }
@@ -41,12 +45,6 @@ final class EmojiMixStore: NSObject {
     convenience override init() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { fatalError() }
         self.init(context: appDelegate.persistentContainer.viewContext)
-    }
-
-    func fetchEmojiMixes() throws -> [EmojiMix] {
-        let request = EmojiMixCoreData.fetchRequest()
-        let emojiMixesFromCoreData = try context.fetch(request)
-        return try emojiMixesFromCoreData.map { try makeEmojiMix(from: $0) }
     }
 
     private func addNewEmojiMix(_ emojiMix: EmojiMix) throws {
@@ -86,37 +84,14 @@ final class EmojiMixStore: NSObject {
 
 extension EmojiMixStore: NSFetchedResultsControllerDelegate {
 
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        insertedIndexes = IndexSet()
-        deletedIndexes = IndexSet()
-    }
-
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        delegate?.didUpdate(insertedIndexes ?? IndexSet(), deletedIndexes ?? IndexSet())
-        clearUpdatedIndexes()
-    }
-
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .insert:
-            if let indexPath = newIndexPath {
-                insertedIndexes?.insert(indexPath.item)
-            }
-        case .delete:
-            if let indexPath = indexPath {
-                deletedIndexes?.insert(indexPath.item)
-            }
-        default:
-            break
-        }
+        delegate?.didUpdateContent()
     }
 }
 
-extension EmojiMixStore: EmojiMixStoreProtocol {
+// MARK: - EmojiMixStoreProtocol
 
-    var numberOfSections: Int {
-        fetchedResultsController.sections?.count ?? 0
-    }
+extension EmojiMixStore: EmojiMixStoreProtocol {
 
     func numberOfItemsInSection(_ section: Int) -> Int {
         fetchedResultsController.sections?[section].numberOfObjects ?? 0
@@ -134,5 +109,13 @@ extension EmojiMixStore: EmojiMixStoreProtocol {
     func deleteEmojiMix(at indexPath: IndexPath) throws {
         let emojiMixCoreData = fetchedResultsController.object(at: indexPath)
         try? deleteEmojiMix(emojiMixCoreData)
+    }
+
+    func deleteAllObjects() throws {
+        let objects = fetchedResultsController.fetchedObjects ?? []
+        for object in objects {
+            context.delete(object)
+        }
+        try context.save()
     }
 }

@@ -9,8 +9,9 @@ import UIKit
 
 final class ViewController: UIViewController {
 
-    lazy var emojiMixFactory = EmojiMixFactory()
-    lazy var emojiMixStore = EmojiMixStore()
+    var viewModel: EmojiMixesViewModel?
+
+    private var emojiMixesBinding: NSObject?
 
     private lazy var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -27,35 +28,38 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationController()
         setupConstraints()
-        emojiMixStore.delegate = self
+    }
+
+    func initialize(_ viewModel: EmojiMixesViewModel) {
+        self.viewModel = viewModel
+        bind()
+    }
+
+    private func bind() {
+        emojiMixesBinding = viewModel?.observe(\.emojiMixes,
+                                                options: []) { [weak self] _, _ in
+            self?.collectionView.reloadData()
+        }
     }
 
     private func setupNavigationController() {
         let rightButton = UIBarButtonItem(barButtonSystemItem: .add,
                                           target: self,
                                           action: #selector(addButtonAction))
+        let leftButton = UIBarButtonItem(title: NSLocalizedString("Delete All", comment: ""),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(deleteAllButtonAction))
         navigationItem.rightBarButtonItem = rightButton
+        navigationItem.leftBarButtonItem = leftButton
     }
 
     @objc private func addButtonAction() {
-        let newEmojiMix = createViewModel()
-        addToStore(newEmojiMix)
+        viewModel?.addToStoreNewEmojiMix()
     }
 
-    private func addToStore(_ newEmojiMix: EmojiMix) {
-        do { try emojiMixStore.addEmojiMix(newEmojiMix) }
-        catch { preconditionFailure("Error: \(error.localizedDescription)") }
-    }
-
-    private func deleteFromStore(at indexPath: IndexPath) {
-        do { try emojiMixStore.deleteEmojiMix(at: indexPath) }
-        catch { preconditionFailure("Error: \(error.localizedDescription)") }
-    }
-
-    private func createViewModel() -> EmojiMix {
-        let emojies = emojiMixFactory.makeNewMix()
-        let color = emojiMixFactory.makeColor()
-        return EmojiMix(emojies: emojies, backgroundColor: color)
+    @objc private func deleteAllButtonAction() {
+        viewModel?.deleteAllEmojiMixes()
     }
 
     private func setupConstraints() {
@@ -78,7 +82,7 @@ extension ViewController: UICollectionViewDelegate {
         let indexPath = indexPaths[0]
         return UIContextMenuConfiguration(actionProvider:  { actions in
             return UIMenu(children: [UIAction(title: "Delete") { [weak self] _ in
-                self?.deleteFromStore(at: indexPath)
+                self?.viewModel?.deleteEmojiMixFromStore(at: indexPath)
             }])
         })
     }
@@ -101,33 +105,14 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 
 extension ViewController: UICollectionViewDataSource {
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return emojiMixStore.numberOfSections
-    }
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return emojiMixStore.numberOfItemsInSection(section)
+        return viewModel?.emojiMixes.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath) as? CollectionViewCell,
-              let emojiMix = emojiMixStore.object(at: indexPath) else { return UICollectionViewCell() }
-        cell.setTitleLabel(text: emojiMix.emojies)
-        cell.contentView.backgroundColor = emojiMix.backgroundColor
+              let viewModel = viewModel else { return UICollectionViewCell() }
+        cell.initialize(viewModel.emojiMixes[indexPath.item])
         return cell
-    }
-}
-
-// MARK: - EmojiMixStoreDelegate
-
-extension ViewController: EmojiMixStoreDelegate {
-
-    func didUpdate(_ insertedIndexes: IndexSet, _ deletedIndexes: IndexSet) {
-        let insertedIndexPaths = insertedIndexes.map { IndexPath(item: $0, section: 0) }
-        let deletedIndexPaths = deletedIndexes.map { IndexPath(item: $0, section: 0) }
-        collectionView.performBatchUpdates {
-            collectionView.insertItems(at: insertedIndexPaths)
-            collectionView.deleteItems(at: deletedIndexPaths)
-        }
     }
 }
