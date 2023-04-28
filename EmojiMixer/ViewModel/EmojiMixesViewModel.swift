@@ -7,10 +7,15 @@
 
 import Foundation
 
-@objcMembers
 final class EmojiMixesViewModel: NSObject, Identifiable {
 
-    dynamic private(set) var emojiMixes: [EmojiMixViewModel] = []
+    var onChange: (() -> Void)?
+
+    private(set) var emojiMixes: [EmojiMixViewModel] = [] {
+        didSet {
+            onChange?()
+        }
+    }
 
     private let emojiMixFactory: EmojiMixFactory
     private let emojiMixStore: EmojiMixStore

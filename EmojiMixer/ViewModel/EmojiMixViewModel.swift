@@ -7,11 +7,21 @@
 
 import UIKit
 
-@objcMembers
 final class EmojiMixViewModel: NSObject, Identifiable {
 
-    dynamic private(set) var emojies: String
-    dynamic private(set) var backgroundColor: UIColor
+    var onChange: (() -> Void)?
+
+    private(set) var emojies: String {
+        didSet {
+            onChange?()
+        }
+    }
+
+    private(set) var backgroundColor: UIColor {
+        didSet {
+            onChange?()
+        }
+    }
 
     init(emojies: String, backgroundColor: UIColor) {
         self.emojies = emojies

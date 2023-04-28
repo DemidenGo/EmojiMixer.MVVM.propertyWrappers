@@ -11,9 +11,6 @@ final class CollectionViewCell: UICollectionViewCell {
 
     private var viewModel: EmojiMixViewModel?
 
-    private var emojiesBinding: NSObject?
-    private var backgroundColorBinding: NSObject?
-
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,11 +27,6 @@ final class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func prepareForReuse() {
-        emojiesBinding = nil
-        backgroundColorBinding = nil
-    }
-
     func initialize(_ viewModel: EmojiMixViewModel) {
         self.viewModel = viewModel
         setTitleLabel(text: viewModel.emojies)
@@ -44,20 +36,10 @@ final class CollectionViewCell: UICollectionViewCell {
 
     private func bind() {
         guard let viewModel = viewModel else { return }
-
-        emojiesBinding = viewModel.observe(\.emojies,
-                                            options: [.new],
-                                            changeHandler: { [weak self] _, change in
-            guard let newValue = change.newValue else { return }
-            self?.setTitleLabel(text: newValue)
-        })
-
-        backgroundColorBinding = viewModel.observe(\.backgroundColor,
-                                                    options: [.new],
-                                                    changeHandler: { [weak self] _, change in
-            guard let newValue = change.newValue else { return }
-            self?.setBackgroundColor(newValue)
-        })
+        viewModel.onChange = { [weak self] in
+            self?.setTitleLabel(text: viewModel.emojies)
+            self?.setBackgroundColor(viewModel.backgroundColor)
+        }
     }
 
     private func setTitleLabel(text: String?) {

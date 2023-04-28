@@ -11,8 +11,6 @@ final class ViewController: UIViewController {
 
     var viewModel: EmojiMixesViewModel?
 
-    private var emojiMixesBinding: NSObject?
-
     private lazy var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -36,8 +34,8 @@ final class ViewController: UIViewController {
     }
 
     private func bind() {
-        emojiMixesBinding = viewModel?.observe(\.emojiMixes,
-                                                options: []) { [weak self] _, _ in
+        guard let viewModel = viewModel else { return }
+        viewModel.onChange = { [weak self] in
             self?.collectionView.reloadData()
         }
     }
