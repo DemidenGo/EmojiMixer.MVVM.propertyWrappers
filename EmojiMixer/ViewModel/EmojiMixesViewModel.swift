@@ -9,13 +9,8 @@ import Foundation
 
 final class EmojiMixesViewModel: NSObject, Identifiable {
 
-    var onChange: (() -> Void)?
-
-    private(set) var emojiMixes: [EmojiMixViewModel] = [] {
-        didSet {
-            onChange?()
-        }
-    }
+    @Observable
+    private(set) var emojiMixes: [EmojiMixViewModel] = []
 
     private let emojiMixFactory: EmojiMixFactory
     private let emojiMixStore: EmojiMixStore

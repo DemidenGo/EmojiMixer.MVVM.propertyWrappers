@@ -35,7 +35,7 @@ final class ViewController: UIViewController {
 
     private func bind() {
         guard let viewModel = viewModel else { return }
-        viewModel.onChange = { [weak self] in
+        viewModel.$emojiMixes.bind { [weak self] _ in
             self?.collectionView.reloadData()
         }
     }

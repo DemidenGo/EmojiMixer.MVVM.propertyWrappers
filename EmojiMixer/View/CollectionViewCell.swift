@@ -36,9 +36,13 @@ final class CollectionViewCell: UICollectionViewCell {
 
     private func bind() {
         guard let viewModel = viewModel else { return }
-        viewModel.onChange = { [weak self] in
-            self?.setTitleLabel(text: viewModel.emojies)
-            self?.setBackgroundColor(viewModel.backgroundColor)
+
+        viewModel.$emojies.bind { [weak self] newValue in
+            self?.setTitleLabel(text: newValue)
+        }
+
+        viewModel.$backgroundColor.bind { [weak self] newValue in
+            self?.setBackgroundColor(newValue)
         }
     }
 

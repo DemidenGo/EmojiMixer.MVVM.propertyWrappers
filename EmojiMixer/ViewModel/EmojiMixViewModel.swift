@@ -9,19 +9,11 @@ import UIKit
 
 final class EmojiMixViewModel: NSObject, Identifiable {
 
-    var onChange: (() -> Void)?
+    @Observable
+    private(set) var emojies: String
 
-    private(set) var emojies: String {
-        didSet {
-            onChange?()
-        }
-    }
-
-    private(set) var backgroundColor: UIColor {
-        didSet {
-            onChange?()
-        }
-    }
+    @Observable
+    private(set) var backgroundColor: UIColor
 
     init(emojies: String, backgroundColor: UIColor) {
         self.emojies = emojies

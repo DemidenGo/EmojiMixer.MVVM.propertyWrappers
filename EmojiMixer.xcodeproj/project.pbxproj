@@ -23,6 +23,7 @@
 		92C8D05E29EFC22F006606B1 /* EmojiMixStoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D05D29EFC22F006606B1 /* EmojiMixStoreProtocol.swift */; };
 		92DB0DAE29F920C800877A94 /* EmojiMixViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB0DAD29F920C800877A94 /* EmojiMixViewModel.swift */; };
 		92DB0DB029F925D100877A94 /* EmojiMixesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB0DAF29F925D100877A94 /* EmojiMixesViewModel.swift */; };
+		92DB0DB629FDC9E700877A94 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB0DB529FDC9E700877A94 /* Observable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		92C8D05D29EFC22F006606B1 /* EmojiMixStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMixStoreProtocol.swift; sourceTree = "<group>"; };
 		92DB0DAD29F920C800877A94 /* EmojiMixViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMixViewModel.swift; sourceTree = "<group>"; };
 		92DB0DAF29F925D100877A94 /* EmojiMixesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMixesViewModel.swift; sourceTree = "<group>"; };
+		92DB0DB529FDC9E700877A94 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			children = (
 				92DB0DAD29F920C800877A94 /* EmojiMixViewModel.swift */,
 				92DB0DAF29F925D100877A94 /* EmojiMixesViewModel.swift */,
+				92DB0DB529FDC9E700877A94 /* Observable.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92445BB729B27730004EC463 /* ViewController.swift in Sources */,
+				92DB0DB629FDC9E700877A94 /* Observable.swift in Sources */,
 				92445BB329B27730004EC463 /* AppDelegate.swift in Sources */,
 				92445BC929B27C36004EC463 /* UIView+Extensions.swift in Sources */,
 				92C8D05429ED4FB7006606B1 /* EmojiMix.swift in Sources */,
